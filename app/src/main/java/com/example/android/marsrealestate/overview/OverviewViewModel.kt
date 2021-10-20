@@ -35,18 +35,31 @@ class OverviewViewModel : ViewModel() {
 
     // The internal MutableLiveData String that stores the status of the most recent request
     private val _status = MutableLiveData<MarsApiStatus>()
-
     // The external immutable LiveData for the request status String
     val status: LiveData<MarsApiStatus>
         get() = _status
 
-    //Internet property
+    //Internal property
     private val _properties = MutableLiveData<List<MarsProperty>>() //Changed to list as now displaying multiple imaghes
-
     //External property
     val properties: LiveData<List<MarsProperty>>
         get() = _properties
 
+    //Internal property
+    private val _navigateToSelectedProperty = MutableLiveData<MarsProperty>()
+    //External property
+    val navigateToSelectedProperty: LiveData<MarsProperty>
+        get() = _navigateToSelectedProperty
+
+    //function to set _navigateToSelectedProperty to marsProperty and initiate navigation to the detail screen on button click:
+    fun displayPropertyDetails(marsProperty: MarsProperty) {
+        _navigateToSelectedProperty.value = marsProperty
+    }
+
+    //set _navigateToSelectedProperty to false once navigation is completed to prevent unwanted extra navigations:
+    fun displayPropertyDetailsComplete() {
+        _navigateToSelectedProperty.value = null
+    }
 
 
     /**
